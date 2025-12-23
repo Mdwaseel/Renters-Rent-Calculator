@@ -250,15 +250,14 @@ function rcw_inline_js() {
     // Calculate interest (monthly recurring)
     if (interest) {
       if (interest.type === "percent") { 
-        const monthlyRate = Number(interest.value || 0);
-        interestAED = amt * monthlyRate * mo; // Multiply by number of months
-        const totalPercentage = (monthlyRate * mo * 100).toFixed(2);
-        const monthlyPercentage = (monthlyRate * 100).toFixed(2);
-        interestLabel = `${monthlyPercentage}% per month × ${mo} months = ${totalPercentage}% total (${fmtAED(interestAED)})`;
+  const monthlyRate = Number(interest.value || 0);
+  interestAED = amt * monthlyRate * mo;
+  const monthlyPercentage = (monthlyRate * 100).toFixed(2);
+  interestLabel = `${monthlyPercentage}% per month`;
       } else if (interest.type === "fixed_aed") { 
-        interestAED = Number(interest.value || 0) * mo; // Fixed fee per month
-        interestLabel = `${fmtAED(Number(interest.value || 0))} per month × ${mo} months = ${fmtAED(interestAED)}`;
-      }
+  interestAED = Number(interest.value || 0) * mo;
+  interestLabel = `${fmtAED(Number(interest.value || 0))} per month`;
+}
     }
     
     // Calculate processing fees (one-time)
@@ -306,11 +305,11 @@ function rcw_inline_js() {
     let rows = "";
    
     for (let i = 1; i <= m; i++) {
-        rows += `<tr>
-          <td>Month ${i}</td>
-          <td>${fmtAED(principalPerMonth)} principal + ${fmtAED(interestPerMonth)} interest = ${fmtAED(monthly)}</td>
-        </tr>`;
-    }
+    rows += `<tr>
+      <td>Month ${i}</td>
+      <td>${fmtAED(monthly)}</td>
+    </tr>`;
+}
    
     scheduleEl.innerHTML = `
       <div style="overflow:auto;">
